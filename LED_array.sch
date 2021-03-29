@@ -4944,8 +4944,30 @@ F 3 "" H 1125 1900 50  0001 C CNN
 	1    1125 1900
 	0    -1   -1   0   
 $EndComp
-Text Label 1400 1600 0    50   ~ 0
+Text Label 1700 1600 0    50   ~ 0
 CKI
-Text Label 1400 1800 0    50   ~ 0
+Text Label 1700 1800 0    50   ~ 0
 SDI
+$Comp
+L Device:R R1
+U 1 1 606E058F
+P 1550 1600
+F 0 "R1" V 1450 1600 50  0000 C CNN
+F 1 "68R" V 1550 1600 50  0000 C CNN
+F 2 "Resistor_SMD:R_0603_1608Metric" V 1480 1600 50  0001 C CNN
+F 3 "~" H 1550 1600 50  0001 C CNN
+	1    1550 1600
+	0    1    1    0   
+$EndComp
+$Comp
+L Device:R R2
+U 1 1 606E627E
+P 1550 1800
+F 0 "R2" V 1450 1800 50  0000 C CNN
+F 1 "68R" V 1550 1800 50  0000 C CNN
+F 2 "Resistor_SMD:R_0603_1608Metric" V 1480 1800 50  0001 C CNN
+F 3 "~" H 1550 1800 50  0001 C CNN
+	1    1550 1800
+	0    1    1    0   
+$EndComp
 $EndSCHEMATC

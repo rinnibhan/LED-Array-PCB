@@ -20,7 +20,7 @@ def add_track(pcb, start_x, start_y, end_x, end_y, width, layer_num):
     track.SetLayer(layer_num) 
     pcb.Add(track)
 
-def place_leds_in_grid(leds, row_lengths, row_spacing, col_spacing):
+def construct_board(leds, row_lengths, row_spacing, col_spacing):
     '''
     Place LEDs in a snaking grid pattern.
 
@@ -63,15 +63,15 @@ def place_leds_in_grid(leds, row_lengths, row_spacing, col_spacing):
                 led.SetOrientation(0)
             
             # Add tracks between SDI/SDO; CKI/CKO pads
-            # if col_num != num_cols - 1: # all except right column
+            if col_num != num_cols - 1: # all except right column
                 # Set track positions (from SDO to SDI of next LED; from CKO to CKI of next LED)
-                # track_s_x = x_pos + FromMM(0.8) # x distance from center of footprint to center of SDO pad
-                # track_s_y = y_pos - FromMM(0.7) # y distance from center of footprint to center of SDO pad
-                # track_c_x = x_pos + FromMM(0.8) # x distance from center of footprint to center of CKO pad
-                # track_c_y = y_pos + FromMM(0.7) # y distance from center of footprint to center of SDO pad
-                # d_t_x = dx - FromMM(1.6) # -2*x distances from center of footprints to center of pads
-                # add_track(pcb, track_s_x, track_s_y, track_s_x + d_t_x, track_s_y, 0.2, 0)
-                # add_track(pcb, track_c_x, track_c_y, track_c_x + d_t_x, track_c_y, 0.2, 0)
+                track_s_x = x_pos + FromMM(0.8) # x distance from center of footprint to center of SDO pad
+                track_s_y = y_pos - FromMM(0.7) # y distance from center of footprint to center of SDO pad
+                track_c_x = x_pos + FromMM(0.8) # x distance from center of footprint to center of CKO pad
+                track_c_y = y_pos + FromMM(0.7) # y distance from center of footprint to center of SDO pad
+                d_t_x = dx - FromMM(1.6) # -2*x distances from center of footprints to center of pads
+                add_track(pcb, track_s_x, track_s_y, track_s_x + d_t_x, track_s_y, 0.2, 0)
+                add_track(pcb, track_c_x, track_c_y, track_c_x + d_t_x, track_c_y, 0.2, 0)
                 # add_track(pcb, x_pos, y_pos - FromMM(1.3), x_pos + dx, y_pos - FromMM(1.3), 0.15, 0)
 
             # Add tracks between vias and Gnd/+5V pads
@@ -84,10 +84,10 @@ def place_leds_in_grid(leds, row_lengths, row_spacing, col_spacing):
             else: # top +5V, bottom Gnd
                up_track_via_bot = y_pos - FromMM(0.6)
                down_track_via_top = y_pos + FromMM(0.7)
-            add_track(pcb, track_via_x, up_track_via_top, track_via_x, up_track_via_bot, 0.2, 0)
-            add_track(pcb, track_via_x, down_track_via_top, track_via_x, down_track_via_bot, 0.2, 0)
+            add_track(pcb, track_via_x, up_track_via_top, track_via_x, up_track_via_bot, 0.3, 0)
+            add_track(pcb, track_via_x, down_track_via_top, track_via_x, down_track_via_bot, 0.3, 0)
 
-            # Add Gnd/+5V vias
+            # Add Gnd/+5V vias?
 
 def layout():
     # Create list of strings: ['D1', 'D2', 'D3', ..., 'D104']
@@ -97,7 +97,7 @@ def layout():
     row_lengths = [8, 8, 12, 12, 12, 12, 12, 12, 12, 12, 8, 8]
     row_spacing = 2.6 # mm
     col_spacing = 2.6 # mm
-    place_leds_in_grid(leds, row_lengths, row_spacing, col_spacing)
+    construct_board(leds, row_lengths, row_spacing, col_spacing)
 
     # Refresh PCB Layout Editor to reflect new placements
     Refresh()
